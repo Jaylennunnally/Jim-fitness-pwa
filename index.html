@@ -37,9 +37,9 @@ svg text{fill:var(--mute);font-size:10px}
 <p>One-time setup. Paste your Apps Script <b>/exec</b> link and the secret token you set with <code>setupToken</code>. They're saved only on this phone.</p>
 <label>Web app URL</label><input id="sUrl" placeholder="https://script.google.com/macros/s/…/exec" autocapitalize="off" autocorrect="off">
 <label>Token</label><input id="sKey" placeholder="your secret token" autocapitalize="off" autocorrect="off">
-<button class="btn" id="sGo">Connect</button><p id="sErr" style="color:#ff8a8a"></p></section>
+<button type="button" class="btn" id="sGo">Connect</button><p id="sErr" style="color:#ff8a8a"></p></section>
 <main id="app" style="display:none">
-<header><h1 id="dlabel">Today<small id="dsub"></small></h1><div class="nav"><button id="prev">‹</button><button id="next">›</button><button id="ref">↻</button></div></header>
+<header><h1 id="dlabel">Today<small id="dsub"></small></h1><div class="nav"><button type="button" id="prev">‹</button><button type="button" id="next">›</button><button type="button" id="ref">↻</button></div></header>
 <div id="status"></div>
 <div class="card"><h2>Calories</h2><div class="hero"><svg id="calRing" width="132" height="132"></svg><div><div class="big" id="left">–</div><div class="sub">remaining</div></div></div>
 <div class="eq"><div><b id="goal">–</b>Goal</div><div><b id="eaten">–</b>Food</div><div><b id="pct">–</b>of goal</div></div></div>
@@ -47,8 +47,8 @@ svg text{fill:var(--mute);font-size:10px}
 <div class="card"><h2>Meals</h2><div id="meals"></div></div>
 <div class="card"><h2>This week</h2><div class="week" id="week"></div><div class="stats" id="wstats"></div></div>
 <div class="card"><h2>Weight</h2><div id="wt"></div></div>
-<div class="card"><h2>Quick add</h2><div class="qa"><input id="qW" type="number" inputmode="decimal" placeholder="Weight (lb)"><button data-f="weight">Log</button></div>
-<div class="qa"><input id="qH" type="number" inputmode="decimal" placeholder="Water (L)"><button data-f="water">Add</button></div><div id="msg"></div></div>
-<p style="text-align:center"><button class="ghost" style="width:auto;padding:0 14px;border-radius:12px;font-size:12px" id="reset">Change connection</button></p>
+<div class="card"><h2>Quick add</h2><div class="qa"><input id="qW" type="number" inputmode="decimal" placeholder="Weight (lb)"><button type="button" data-f="weight">Log</button></div>
+<div class="qa"><input id="qH" type="number" inputmode="decimal" placeholder="Water (L)"><button type="button" data-f="water">Add</button></div><div id="msg"></div></div>
+<p style="text-align:center"><button type="button" class="ghost" style="width:auto;padding:0 14px;border-radius:12px;font-size:12px" id="reset">Change connection</button></p>
 </main>
 <script src="app.js"></script></body></html>
