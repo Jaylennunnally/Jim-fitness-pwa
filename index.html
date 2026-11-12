@@ -24,20 +24,33 @@ header h1{margin:0;font-size:30px;font-weight:800;letter-spacing:-.5px}header h1
 svg text{fill:var(--mute);font-size:10px}
 .qa{display:flex;gap:8px;margin-bottom:10px}.qa input{flex:1;min-width:0;background:var(--card2);border:0;color:var(--ink);padding:13px;border-radius:14px;font-size:16px}
 .qa button,.btn{border:0;background:var(--baby);color:#0a1128;border-radius:14px;padding:0 16px;font-weight:800;font-size:15px}
-.empty{color:var(--mute);text-align:center;font-size:14px;padding:6px}#msg{text-align:center;font-size:13px;color:var(--ok);min-height:16px}
+.empty{color:var(--mute);text-align:center;font-size:13px;line-height:1.4;padding:10px 6px}#msg{text-align:center;font-size:13px;color:var(--ok);min-height:16px}
 #status{font-size:11px;color:var(--mute);text-align:center;margin-top:-6px;margin-bottom:10px}
 #splash{position:fixed;inset:0;z-index:99;display:flex;flex-direction:column;align-items:center;justify-content:center;background:radial-gradient(circle at 50% 40%,#16306e,#0a1128 70%);transition:opacity .35s}
 #splash img{width:118px;height:118px;border-radius:27px;box-shadow:0 14px 40px #000a;animation:pop .6s ease}#splash p{color:var(--baby);font-weight:700;letter-spacing:2px;margin-top:20px}
 @keyframes pop{from{transform:scale(.85);opacity:0}}
 #setup{display:none;padding:30px 22px}#setup h1{font-size:28px}#setup input{width:100%;margin:8px 0 16px;background:var(--card2);border:0;color:var(--ink);padding:14px;border-radius:14px;font-size:15px}#setup .btn{width:100%;height:50px}
-#setup p{color:var(--mute);font-size:14px;line-height:1.45}
+#setup p{color:var(--mute);font-size:14px;line-height:1.45}#setup label{font-size:13px;font-weight:700;color:var(--baby)}
+#setup .logo{display:block;border-radius:15px;box-shadow:0 8px 24px #0008;margin-bottom:6px}#setup h1{margin:10px 0 6px}
+.steps{margin:0 0 18px;padding:14px 16px 14px 32px;background:var(--card);border-radius:16px;color:#d5def5;font-size:14px;line-height:1.45}.steps li{margin:4px 0}.steps b{color:var(--baby)}
+#setup code{background:var(--card2);padding:1px 6px;border-radius:6px;color:var(--baby);font-size:13px}
+.cur{background:#4fa8ff1a;border-radius:12px;padding:10px 12px;color:var(--baby)!important}.cur:empty{display:none}
+.ghost.link{display:block;width:100%;height:44px;border-radius:14px;font-size:14px;margin-top:4px}.btn:disabled{opacity:.6}
+.fine{text-align:center;font-size:13px!important;margin-top:18px}.fine a{color:var(--baby)}
+.nav button:disabled{opacity:.3}.empty b{display:block;color:var(--ink);font-size:15px;margin-bottom:4px}
 </style></head><body>
 <div id="splash"><img src="icon-512.png" alt="JIM"><p>STAY LOCKED IN</p></div>
-<section id="setup"><h1>Connect JIM</h1>
-<p>One-time setup. Paste your Apps Script <b>/exec</b> link and the secret token you set with <code>setupToken</code>. They're saved only on this phone.</p>
-<label>Web app URL</label><input id="sUrl" placeholder="https://script.google.com/macros/s/…/exec" autocapitalize="off" autocorrect="off">
-<label>Token</label><input id="sKey" placeholder="your secret token" autocapitalize="off" autocorrect="off">
-<button type="button" class="btn" id="sGo">Connect</button><p id="sErr" style="color:#ff8a8a"></p></section>
+<section id="setup"><img class="logo" src="icon-192.png" alt="" width="64" height="64"><h1>Connect JIM</h1>
+<p>JIM reads from <b>your own</b> tracker sheet. Each person (and each phone) connects with their own Apps Script <b>/exec</b> link and their own secret token.</p>
+<ul class="steps"><li>Use the link and token from <b>your</b> copy of the sheet, the one you set with <code>setupToken</code>.</li>
+<li>Don’t use someone else’s link or token. You’d see and log into their data, not yours.</li>
+<li>Both are saved only on this phone. Nothing is sent anywhere except your own sheet.</li></ul>
+<p id="sCur" class="cur"></p>
+<label for="sUrl">Your web app link (/exec)</label><input id="sUrl" type="url" placeholder="https://script.google.com/macros/s/…/exec" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false">
+<label for="sKey">Your token</label><input id="sKey" type="text" placeholder="the secret phrase from your setupToken" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false">
+<button type="button" class="btn" id="sGo">Connect</button><p id="sErr" style="color:#ff8a8a"></p>
+<button type="button" class="ghost link" id="sCancel" style="display:none">Cancel, keep current connection</button>
+<p class="fine">Just looking? <a href="?demo=1">Preview with sample data</a>.</p></section>
 <main id="app" style="display:none">
 <header><h1 id="dlabel">Today<small id="dsub"></small></h1><div class="nav"><button type="button" id="prev">‹</button><button type="button" id="next">›</button><button type="button" id="ref">↻</button></div></header>
 <div id="status"></div>

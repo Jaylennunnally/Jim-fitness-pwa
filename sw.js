@@ -1,4 +1,4 @@
-const V='jim-shell-v1',SHELL=['./','index.html','app.js','manifest.json','icon-192.png','icon-512.png','apple-touch-icon.png'];
+const V='jim-shell-v2',SHELL=['./','index.html','app.js','manifest.json','icon-192.png','icon-512.png','apple-touch-icon.png','demo.js'];
 self.addEventListener('install',e=>{e.waitUntil(caches.open(V).then(c=>c.addAll(SHELL)));self.skipWaiting()});
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(k=>Promise.all(k.filter(x=>x!==V).map(x=>caches.delete(x)))));self.clients.claim()});
 // App shell: cache-first, refresh in background. API calls (script.google.com) are never cached here –
