@@ -1,0 +1,45 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0a1128">
+<title>JIM demo</title>
+<style>
+body{margin:0;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#0a1128;color:#f2f6ff;font-family:-apple-system,BlinkMacSystemFont,system-ui,sans-serif;text-align:center;padding:24px}
+p{max-width:28rem;color:#8ecbff;font-weight:700;line-height:1.45}
+button{display:none;margin-top:16px;border:0;background:#8ecbff;color:#0a1128;border-radius:14px;padding:12px 18px;font-weight:800;font-size:15px}
+button.show{display:inline-block}
+</style></head><body>
+<p id="m">Opening sample data…</p>
+<button type="button" id="again">Try again</button>
+<script>
+// Not in the jim-shell-v1 cache. v1 matches navigations with ignoreSearch, so a first
+// visit to /?demo=1 still runs the old shell, and quick-add can write to a real sheet.
+// Stay here until this page is uncontrolled, or until the active worker answers /jim-ver
+// with a shell newer than v1. Then open the sample view only if app.js still contains
+// "Demo mode does not contact a sheet", so a stale shell cannot take a quick-add.
+(function(){
+var dest=new URL('./?demo=1',location.href).href,moved=false;
+function verOf(){
+  return fetch('jim-ver',{cache:'no-store'}).then(function(r){return r.ok?r.text():''}).then(function(t){return (t||'').trim()}).catch(function(){return ''});
+}
+function safe(v){return v.indexOf('jim-shell-v')===0&&v!=='jim-shell-v1'}
+function shellOk(){
+  return fetch('app.js',{cache:'no-store'}).then(function(r){return r.ok?r.text():''}).then(function(t){
+    return t.indexOf('Demo mode does not contact a sheet')!==-1;
+  }).catch(function(){return false});
+}
+function go(){if(moved)return;moved=true;clearTimeout(timer);location.replace(dest)}
+function fail(){
+  if(moved)return;
+  document.getElementById('m').textContent='This phone still has an older saved copy of JIM, so the sample view stayed closed. Nothing was connected and nothing was saved.';
+  var b=document.getElementById('again');b.classList.add('show');b.onclick=function(){location.reload()};
+}
+var timer=setTimeout(fail,10000);
+function ready(v){if(!safe(v)||moved)return;shellOk().then(function(ok){if(ok)go();else fail()})}
+if(!('serviceWorker' in navigator)||!navigator.serviceWorker.controller){shellOk().then(function(ok){if(ok)go();else fail()});return}
+navigator.serviceWorker.addEventListener('controllerchange',function(){verOf().then(ready)});
+verOf().then(function(v){
+  if(safe(v)){ready(v);return}
+  navigator.serviceWorker.register('sw.js').then(verOf).then(ready).catch(fail);
+});
+})();
+</script></body></html>
