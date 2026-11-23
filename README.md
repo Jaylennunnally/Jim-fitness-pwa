@@ -19,12 +19,14 @@ Do **not** use File → Make a copy on an existing person's tracker. That would 
 1. Create a new empty spreadsheet with the same tabs and headers (This Week, Food Log, Daily Log). Leave the logs empty.
 2. Attach a fresh Apps Script pointed at **that new spreadsheet id**. Set a **new** token in `setupToken()` and run it, then Deploy → New deployment → Web app, access **Anyone**. This gives a new /exec link.
 3. On their iPhone, open the app link above in Safari → Add to Home Screen → paste **their** /exec link + token → Connect.
-4. To switch a phone to a different sheet, tap **Change connection** at the bottom of the dashboard. Connecting a new link clears the old cached data on that phone.
+4. To switch a phone to a different sheet, tap **Change connection** at the bottom of the dashboard. Connecting a new link clears the old cached data on that phone. Another open tab on that phone reloads onto the new sheet.
 
 ## Demo mode
-Open `?demo=1` (e.g. https://jaylennunnally.github.io/Jim-fitness-pwa/?demo=1) to see the dashboard filled with fictional sample data from `demo.js`. Demo mode never contacts a sheet and never saves anything. Useful for screenshots.
+Open `demo.html` (e.g. https://jaylennunnally.github.io/Jim-fitness-pwa/demo.html) to see the dashboard filled with fictional sample data from `demo.js`. Demo mode never contacts a sheet and never saves anything. Useful for screenshots.
 
-Locally: `python3 -m http.server 8080` in this folder, then open http://localhost:8080/?demo=1.
+`demo.html` is its own address so a phone that still has the older saved app (`jim-shell-v1`) does not open that saved copy when you ask for the sample view. That older copy treated `?demo=1` as the normal tracker and could log into the connected sheet.
+
+Locally: `python3 -m http.server 8080` in this folder, then open http://localhost:8080/demo.html.
 
 ## Updating
 When you change any app file, bump the cache name in `sw.js` (`jim-shell-vN`) so installed phones pick up the new version.
